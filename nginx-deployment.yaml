@@ -3,15 +3,6 @@ kind: Deployment
 metadata:
   name: nginx-deployment
 spec:
-  affinity: 
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-            - key: node-role.kubernetes.io/edge
-              operator: DoesNotExist
-            - key: node-role.kubernetes.io/agent
-              operator: DoesNotExist
   selector:
     matchLabels:
       app: nginx
@@ -20,6 +11,15 @@ spec:
       labels:
         app: nginx
     spec:
+      affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: node-role.kubernetes.io/edge
+                  operator: Exists
+                - key: node-role.kubernetes.io/agent
+                  operator: Exists
       containers:
       - name: nginx
         image: nginx
