@@ -3,6 +3,15 @@ kind: Deployment
 metadata:
   name: nginx-deployment
 spec:
+  affinity: 
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+            - key: node-role.kubernetes.io/edge
+              operator: DoesNotExist
+            - key: node-role.kubernetes.io/agent
+              operator: DoesNotExist
   selector:
     matchLabels:
       app: nginx
