@@ -11,6 +11,7 @@ spec:
       labels:
         app: nginx
     spec:
+      replicas: 2
       affinity:
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
